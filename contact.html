@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Shaun Hern GrandpaDad</title>
+  <meta name="description" content="Get in touch with Shaun Hern — speaking inquiries, book questions, or just to say hello." />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    /* ── CONTACT PAGE ── */
+    .contact-hero {
+      background: linear-gradient(135deg, #3A1E08 0%, #5C3018 100%);
+      padding: 7rem 0 4rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .contact-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(85deg,transparent,transparent 80px,rgba(255,255,255,0.015) 80px,rgba(255,255,255,0.015) 81px);
+    }
+    .contact-hero img { max-width: 280px; width: 80%; margin: 0 auto 1.2rem; display: block; mix-blend-mode: screen; }
+    .contact-hero h1 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem,3.5vw,2.8rem); color: #FAF6F1; margin-bottom: 0.6rem; }
+    .contact-hero p { font-family: 'Nunito', sans-serif; font-size: 1rem; color: rgba(251,247,240,0.75); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── FORM SECTION ── */
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; padding: 5rem 0; }
+
+    /* Left info panel */
+    .contact-info-panel { display: flex; flex-direction: column; gap: 2rem; }
+    .info-block { display: flex; gap: 1rem; align-items: flex-start; }
+    .info-icon { width: 44px; height: 44px; background: var(--parchment); border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .info-text h4 { font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.25rem; }
+    .info-text p, .info-text a { font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--ink); line-height: 1.55; text-decoration: none; }
+    .info-text a:hover { color: var(--gold); }
+    .social-row { display: flex; gap: 0.7rem; margin-top: 0.5rem; }
+    .soc-btn { padding: 0.4rem 1rem; background: var(--brown); color: #fff; font-family: 'Nunito', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.18s; }
+    .soc-btn:hover { background: var(--gold); }
+
+    /* Right form panel */
+    .contact-form-panel { background: var(--paper2); padding: 2.5rem; border-radius: 3px; border: 1px solid var(--parchment); }
+    .contact-form-panel h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; color: var(--brown); margin-bottom: 0.3rem; }
+    .contact-form-panel .form-note { font-family: 'Nunito', sans-serif; font-size: 0.88rem; color: var(--brown2); margin-bottom: 1.6rem; }
+
+    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .cf-field { display: flex; flex-direction: column; gap: 0.28rem; margin-bottom: 0.75rem; }
+    .cf-field label { font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--brown); }
+    .cf-field input, .cf-field select, .cf-field textarea {
+      padding: 0.75rem 0.9rem;
+      background: var(--paper); border: 1.5px solid var(--parchment); border-radius: 2px;
+      font-family: 'Nunito', sans-serif; font-size: 0.92rem; color: var(--ink);
+      outline: none; transition: border-color 0.2s; width: 100%; appearance: none;
+    }
+    .cf-field input:focus, .cf-field select:focus, .cf-field textarea:focus { border-color: var(--gold); }
+    .cf-field textarea { height: 100px; resize: vertical; }
+    .cf-field input[type="checkbox"] { width: auto; appearance: auto; margin-right: 0.5rem; accent-color: var(--gold); }
+
+    /* Mailing list checkbox row */
+    .mailing-row {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 1rem; margin-bottom: 0.75rem;
+      background: rgba(184,96,40,0.07);
+      border: 1.5px solid var(--parchment); border-radius: 2px;
+      cursor: pointer; transition: border-color 0.18s;
+    }
+    .mailing-row:hover { border-color: var(--gold); }
+    .mailing-row input[type="checkbox"] { width: 18px; height: 18px; appearance: auto; accent-color: var(--gold); flex-shrink: 0; cursor: pointer; }
+    .mailing-row label { font-family: 'Nunito', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--brown); cursor: pointer; line-height: 1.4; }
+    .mailing-row .mail-sub { font-size: 0.8rem; font-weight: 400; color: var(--brown2); display: block; }
+
+    .cf-msg { display: none; padding: 0.9rem 1rem; font-family: 'Nunito', sans-serif; font-size: 0.88rem; margin-bottom: 0.75rem; line-height: 1.5; border-radius: 2px; }
+    .cf-msg.success { background: rgba(78,114,88,0.12); color: var(--sage); border-left: 3px solid var(--sage); }
+    .cf-msg.error   { background: rgba(156,61,34,0.10); color: var(--rust); border-left: 3px solid var(--rust); }
+
+    /* ── CONTACTS TABLE (admin) ── */
+    .admin-section { background: var(--brown); padding: 4rem 0; }
+    .admin-section .container { position: relative; z-index: 1; }
+    .admin-toggle-row { text-align: center; }
+    .admin-toggle2 { background: none; border: none; font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(251,247,240,0.2); cursor: pointer; padding: 0.5rem; transition: color 0.2s; }
+    .admin-toggle2:hover { color: rgba(251,247,240,0.45); }
+    .admin-pw-wrap2 { display: none; background: rgba(255,255,255,0.07); padding: 1.4rem; margin: 1rem auto 0; max-width: 340px; border-radius: 3px; }
+    .admin-pw-wrap2 input { width: 100%; padding: 0.65rem 0.9rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(212,168,75,0.3); color: #FAF6F1; font-family: 'Nunito', sans-serif; font-size: 0.92rem; outline: none; margin-bottom: 0.75rem; border-radius: 2px; }
+    .admin-pw-wrap2 input:focus { border-color: var(--gold); }
+    #contacts-panel { display: none; margin-top: 2.5rem; }
+    .contacts-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+    .contacts-header h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; color: #FAF6F1; }
+    .contacts-stats { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+    .cstat { background: rgba(255,255,255,0.07); padding: 0.8rem 1.2rem; text-align: center; border-radius: 2px; min-width: 80px; }
+    .cstat .csn { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; color: var(--gold2); display: block; }
+    .cstat .csl { font-family: 'Nunito', sans-serif; font-size: 0.7rem; color: rgba(251,247,240,0.5); letter-spacing: 0.08em; text-transform: uppercase; }
+    .contacts-controls { display: flex; gap: 0.7rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+    .contacts-controls input, .contacts-controls select {
+      padding: 0.5rem 0.9rem; background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(212,168,75,0.3); color: #FAF6F1;
+      font-family: 'Nunito', sans-serif; font-size: 0.85rem;
+      outline: none; border-radius: 2px; min-width: 180px;
+    }
+    .contacts-controls input::placeholder { color: rgba(251,247,240,0.35); }
+    .contacts-controls input:focus, .contacts-controls select:focus { border-color: var(--gold); }
+    .contacts-table-wrap { overflow-x: auto; }
+    .contacts-table { width: 100%; border-collapse: collapse; font-family: 'Nunito', sans-serif; font-size: 0.83rem; }
+    .contacts-table th { text-align: left; padding: 0.6rem 0.9rem; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold2); border-bottom: 1px solid rgba(212,168,75,0.3); cursor: pointer; white-space: nowrap; user-select: none; }
+    .contacts-table th:hover { color: var(--gold); }
+    .contacts-table td { padding: 0.65rem 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(251,247,240,0.85); vertical-align: middle; }
+    .contacts-table tr:hover td { background: rgba(255,255,255,0.04); }
+    .contacts-table tr:last-child td { border-bottom: none; }
+    .badge { display: inline-block; padding: 0.15rem 0.5rem; font-size: 0.7rem; font-weight: 700; border-radius: 2px; white-space: nowrap; }
+    .badge-mail   { background: rgba(184,131,42,0.2); color: var(--gold2); }
+    .badge-speak  { background: rgba(78,114,88,0.25); color: #93BF9E; }
+    .badge-books  { background: rgba(45,84,114,0.3);  color: #7AABCF; }
+    .badge-press  { background: rgba(156,61,34,0.25); color: #D48A70; }
+    .badge-hello  { background: rgba(100,100,100,0.2);color: rgba(251,247,240,0.6); }
+    .del-btn2 { background: none; border: none; color: rgba(251,247,240,0.25); cursor: pointer; font-size: 0.95rem; padding: 0.2rem 0.4rem; transition: color 0.2s; }
+    .del-btn2:hover { color: var(--rust); }
+    .ct-empty { text-align: center; padding: 2.5rem; color: rgba(251,247,240,0.3); font-family: 'Fraunces', serif; font-style: italic; }
+    .pg2 { display: flex; gap: 0.4rem; margin-top: 1rem; justify-content: flex-end; }
+    .pg2 button { padding: 0.35rem 0.7rem; background: transparent; border: 1px solid rgba(212,168,75,0.3); color: rgba(251,247,240,0.55); font-family: 'Nunito', sans-serif; font-size: 0.78rem; cursor: pointer; border-radius: 2px; transition: all 0.18s; }
+    .pg2 button:hover, .pg2 button.active { background: var(--gold); color: var(--brown); border-color: var(--gold); }
+
+    @media (max-width: 760px) {
+      .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+      .cf-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-brand" href="/">Shaun <span>Hern</span></a>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/books.html">Books</a></li>
+      <li><a href="/speaking.html">Speaking</a></li>
+      <li><a href="/community.html">Community</a></li>
+      <li><a href="/quotes.html">Quotes &amp; Merch</a></li>
+      <li><a href="/signup.html">Newsletter</a></li>
+      <li><a href="/contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="contact-hero">
+    <img src="/images/logo-transparent.png" alt="Shaun Hern GrandpaDad" />
+    <h1>Let's Connect</h1>
+    <p>Whether you're a reader, an event organizer, a fellow caregiver, or just someone who needed to know they're not alone today — Shaun reads every message. Every one.</p>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section style="background: var(--paper); padding: 0;">
+    <div class="container">
+      <div class="contact-wrap">
+
+        <!-- LEFT: Info -->
+        <div class="contact-info-panel fade-up">
+          <div class="info-block">
+            <div class="info-icon">
+              <svg viewBox="0 0 22 22" fill="none" width="20" height="20">
+                <path d="M4 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" stroke="var(--gold)" stroke-width="1.4"/>
+                <path d="M2 6l9 7 9-7" stroke="var(--gold)" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="info-text">
+              <h4>Email</h4>
+              <p><a href="mailto:shaun@shaunhern.com">shaun@shaunhern.com</a></p>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">
+              <svg viewBox="0 0 22 22" fill="none" width="20" height="20">
+                <rect x="8" y="2" width="6" height="10" rx="3" stroke="var(--gold)" stroke-width="1.4"/>
+                <path d="M5 11C5 14.9 7.7 18 11 18C14.3 18 17 14.9 17 11" stroke="var(--gold)" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M11 18V21M8 21H14" stroke="var(--gold)" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="info-text">
+              <h4>Speaking Inquiries</h4>
+              <p>Churches, conferences, autism &amp; disability fairs, caregiver events, school programs.</p>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">
+              <svg viewBox="0 0 22 22" fill="none" width="20" height="20">
+                <rect x="3" y="14" width="16" height="5" rx="1" stroke="var(--gold)" stroke-width="1.4"/>
+                <rect x="5" y="9" width="12" height="5" rx="1" stroke="var(--gold)" stroke-width="1.4"/>
+                <rect x="7" y="4" width="8" height="5" rx="1" stroke="var(--gold)" stroke-width="1.4"/>
+              </svg>
+            </div>
+            <div class="info-text">
+              <h4>Books on Amazon</h4>
+              <p>
+                <a href="https://a.co/d/05g2vExn" target="_blank" rel="noopener">GrandpaDad Adventures →</a><br/>
+                <a href="https://a.co/d/0bUj5BYC" target="_blank" rel="noopener">Guide My Decisions →</a>
+              </p>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">
+              <svg viewBox="0 0 22 22" fill="none" width="20" height="20">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="var(--gold)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="info-text">
+              <h4>Follow Along</h4>
+              <p>Join the GrandpaDad community on Facebook.</p>
+              <div class="social-row">
+                <a href="https://l.facebook.com/l.php?u=http%3A%2F%2Fshaunhern.com%2F%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExREd2cVRUQmp3Y3dJUVRiaXNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6HwLS3ewb6xMzh4FhGmVRfOh91B6T9kTmS0wkZ0ijQ1oUGlS1zuR3FXfk0rg_aem_EG7FJ7Q6_-dzg-z5Z8tDOg&h=AT6Ab34K22TUghVHEJw3HSol3iujxCNwdypOj3RKd4SYj0RDfD2MgLo8soKarEDvSyeRahz_HFO3cuxCs7UXyL_-RQ6aDghefkNmH8ibYGayYov7iuNwyVRghkrxbKV2mgq_"
+                   class="soc-btn" target="_blank" rel="noopener">Facebook</a>
+                <a href="https://shaunhern.myshopify.com" class="soc-btn" target="_blank" rel="noopener">Shop</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quote -->
+          <div style="padding: 1.4rem 1.5rem; border-left: 3px solid var(--gold); background: var(--paper2); border-radius: 0 2px 2px 0; margin-top: 0.5rem;">
+            <p style="font-family: Fraunces, serif; font-style: italic; font-size: 1rem; color: var(--brown); line-height: 1.65;">"Shaun reads every message. Every one."</p>
+            <span style="font-family: Caveat, cursive; font-size: 0.95rem; color: var(--gold); display: block; margin-top: 0.4rem;">— That's just how it is.</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="contact-form-panel fade-up">
+          <h3>Send Shaun a Message</h3>
+          <p class="form-note">Fill in what you can. The more you share, the better Shaun can respond.</p>
+
+          <div class="cf-row">
+            <div class="cf-field">
+              <label for="cf-first">First Name *</label>
+              <input type="text" id="cf-first" placeholder="Grace" autocomplete="given-name" />
+            </div>
+            <div class="cf-field">
+              <label for="cf-last">Last Name</label>
+              <input type="text" id="cf-last" placeholder="Johnson" autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-email">Email Address *</label>
+            <input type="email" id="cf-email" placeholder="grace@example.com" autocomplete="email" />
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-phone">Phone (optional)</label>
+            <input type="tel" id="cf-phone" placeholder="(555) 000-0000" autocomplete="tel" />
+          </div>
+
+          <div class="cf-row">
+            <div class="cf-field">
+              <label for="cf-city">City</label>
+              <input type="text" id="cf-city" placeholder="Ormond Beach" autocomplete="address-level2" />
+            </div>
+            <div class="cf-field">
+              <label for="cf-state">State</label>
+              <input type="text" id="cf-state" placeholder="FL" maxlength="2" autocomplete="address-level1" />
+            </div>
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-reason">I'm reaching out about…</label>
+            <select id="cf-reason">
+              <option value="">Select one</option>
+              <option value="speaking">A speaking inquiry</option>
+              <option value="books">Your books</option>
+              <option value="press">Media or press</option>
+              <option value="hello">Just saying hello</option>
+              <option value="caregiver">Caregiver support / community</option>
+              <option value="shopify">Merchandise / store</option>
+            </select>
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-message">Your Message *</label>
+            <textarea id="cf-message" placeholder="Your story, a speaking request, a prayer — whatever brought you here…"></textarea>
+          </div>
+
+          <!-- MAILING LIST OPT-IN -->
+          <div class="mailing-row" onclick="document.getElementById('cf-mailinglist').click()">
+            <input type="checkbox" id="cf-mailinglist" onclick="event.stopPropagation()" />
+            <label for="cf-mailinglist" onclick="event.preventDefault()">
+              Yes, add me to the GrandpaDad mailing list
+              <span class="mail-sub">Real stories, honest faith, notes from the porch. No fluff. Unsubscribe anytime.</span>
+            </label>
+          </div>
+
+          <div class="cf-msg" id="cf-msg"></div>
+
+          <button class="btn-primary" id="cf-btn" onclick="handleContact()"
+            style="width:100%; border:none; cursor:pointer; font-size:0.95rem; padding:1rem;">
+            Send Message
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN SECTION -->
+  <div class="admin-section">
+    <div class="container">
+      <div class="admin-toggle-row">
+        <button class="admin-toggle2" onclick="toggleAdminPw()">⚙ Admin — Contact Records</button>
+        <div class="admin-pw-wrap2" id="admin-pw-wrap2">
+          <input type="password" id="admin-pw2" placeholder="Enter admin password"
+                 onkeydown="if(event.key==='Enter') checkAdminPw2()" />
+          <button class="btn-admin" onclick="checkAdminPw2()" style="width:100%;">Access Records</button>
+          <p id="admin-pw2-err" style="color:var(--rust);font-size:0.8rem;margin-top:0.5rem;display:none;">Incorrect password.</p>
+        </div>
+      </div>
+
+      <div id="contacts-panel">
+        <div class="contacts-header">
+          <h3>Contact Records</h3>
+          <div class="contacts-stats">
+            <div class="cstat"><span class="csn" id="ct-total">0</span><span class="csl">Total</span></div>
+            <div class="cstat"><span class="csn" id="ct-mailing">0</span><span class="csl">Mailing List</span></div>
+            <div class="cstat"><span class="csn" id="ct-speaking">0</span><span class="csl">Speaking</span></div>
+            <div class="cstat"><span class="csn" id="ct-new">0</span><span class="csl">This Week</span></div>
+          </div>
+        </div>
+
+        <div class="contacts-controls">
+          <input type="text" id="ct-search" placeholder="Search name or email…" oninput="renderContacts()" />
+          <select id="ct-filter" onchange="renderContacts()" style="color:#FAF6F1;">
+            <option value="">All contacts</option>
+            <option value="speaking">Speaking</option>
+            <option value="books">Books</option>
+            <option value="press">Media / Press</option>
+            <option value="hello">Hello</option>
+            <option value="caregiver">Caregiver</option>
+            <option value="shopify">Merch / Store</option>
+          </select>
+          <select id="ct-mail-filter" onchange="renderContacts()" style="color:#FAF6F1;">
+            <option value="">All opt-ins</option>
+            <option value="yes">Mailing list ✓</option>
+            <option value="no">Not subscribed</option>
+          </select>
+          <button class="btn-admin" onclick="exportContacts()">⬇ Export CSV</button>
+          <button class="btn-admin danger" onclick="clearContacts()">✕ Clear All</button>
+          <button class="btn-admin" onclick="document.getElementById('contacts-panel').style.display='none'">Close</button>
+        </div>
+
+        <div class="contacts-table-wrap">
+          <table class="contacts-table">
+            <thead>
+              <tr>
+                <th onclick="sortContacts('firstName')">Name ↕</th>
+                <th onclick="sortContacts('email')">Email ↕</th>
+                <th onclick="sortContacts('phone')">Phone</th>
+                <th onclick="sortContacts('city')">Location</th>
+                <th onclick="sortContacts('reason')">Reason</th>
+                <th onclick="sortContacts('mailingList')">Mailing</th>
+                <th onclick="sortContacts('submittedAt')">Date ↕</th>
+                <th>Message</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="ct-tbody"></tbody>
+          </table>
+        </div>
+        <div class="pg2" id="ct-pagination"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-brand">Shaun <span>Hern</span> · GrandpaDad · Author &amp; Speaker</p>
+    <p>© 2026 Shaun Hern. All rights reserved. |
+      <a href="/books.html">Books</a> ·
+      <a href="/speaking.html">Speaking</a> ·
+      <a href="/signup.html">Newsletter</a> ·
+      <a href="/contact.html">Contact</a>
+    </p>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+    const CONTACTS_KEY = 'grandpadad_contacts';
+    const ADMIN_PW = 'grandpadad2026';
+    const SIGNUP_KEY = 'grandpadad_subscribers';
+    let ctSortKey = 'submittedAt';
+    let ctSortDir = -1;
+    let ctPage = 1;
+    const CT_PER_PAGE = 12;
+
+    // ── Storage helpers ───────────────────────────────────────────
+    function getContacts() {
+      try { return JSON.parse(localStorage.getItem(CONTACTS_KEY) || '[]'); }
+      catch(e) { return []; }
+    }
+    function saveContacts(c) { localStorage.setItem(CONTACTS_KEY, JSON.stringify(c)); }
+
+    function getSubscribers() {
+      try { return JSON.parse(localStorage.getItem(SIGNUP_KEY) || '[]'); }
+      catch(e) { return []; }
+    }
+    function saveSubscribers(s) { localStorage.setItem(SIGNUP_KEY, JSON.stringify(s)); }
+
+    // ── Handle form submission ─────────────────────────────────────
+    async function handleContact() {
+      const first   = document.getElementById('cf-first').value.trim();
+      const last    = document.getElementById('cf-last').value.trim();
+      const email   = document.getElementById('cf-email').value.trim();
+      const phone   = document.getElementById('cf-phone').value.trim();
+      const city    = document.getElementById('cf-city').value.trim();
+      const state   = document.getElementById('cf-state').value.trim();
+      const reason  = document.getElementById('cf-reason').value;
+      const message = document.getElementById('cf-message').value.trim();
+      const mailing = document.getElementById('cf-mailinglist').checked;
+      const msg     = document.getElementById('cf-msg');
+      const btn     = document.getElementById('cf-btn');
+
+      msg.className = 'cf-msg'; msg.style.display = 'none';
+
+      if (!first) { showMsg('error', 'Please enter your first name.'); return; }
+      if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) { showMsg('error', 'Please enter a valid email address.'); return; }
+      if (!message) { showMsg('error', 'Please add a message — even a short one.'); return; }
+
+      btn.textContent = 'Sending…'; btn.disabled = true;
+
+      // Save contact record
+      const record = {
+        id: Date.now(),
+        firstName: first, lastName: last, email, phone,
+        city, state,
+        reason: reason || 'hello',
+        message,
+        mailingList: mailing,
+        submittedAt: new Date().toISOString(),
+        source: 'contact-page'
+      };
+
+      const contacts = getContacts();
+      contacts.push(record);
+      saveContacts(contacts);
+
+      // If opted into mailing list — also add to subscriber DB
+      if (mailing) {
+        const subs = getSubscribers();
+        const alreadyIn = subs.find(s => s.email.toLowerCase() === email.toLowerCase());
+        if (!alreadyIn) {
+          subs.push({
+            id: Date.now() + 1,
+            firstName: first, lastName: last, email,
+            interest: reason || 'not specified',
+            note: message.substring(0, 120),
+            welcomeMsg: '',
+            joinedAt: new Date().toISOString(),
+            source: 'contact-form'
+          });
+          saveSubscribers(subs);
+        }
+      }
+
+      // Generate AI response
+      let welcome = `Thank you, ${first}! Shaun will read your message personally and get back to you soon.`;
+      try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-6',
+            max_tokens: 100,
+            system: "You write warm, brief, faith-grounded acknowledgment messages for Shaun Hern (GrandpaDad — author and speaker). 1-2 sentences. Personal and genuine. Never cheesy. Use their name.",
+            messages: [{ role: 'user', content: `Write an acknowledgment for ${first}${last ? ' ' + last : ''} who contacted Shaun about: "${reason || 'general'}" with message: "${message.substring(0,80)}"` }]
+          })
+        });
+        const data = await res.json();
+        if (data.content && data.content[0]) welcome = data.content[0].text;
+      } catch(e) { /* use default */ }
+
+      showMsg('success', welcome);
+      btn.textContent = '✓ Message Sent';
+      btn.style.background = 'var(--sage)';
+
+      // Clear form
+      ['cf-first','cf-last','cf-email','cf-phone','cf-city','cf-state','cf-message'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      document.getElementById('cf-reason').value = '';
+      document.getElementById('cf-mailinglist').checked = false;
+
+      if (document.getElementById('contacts-panel').style.display !== 'none') refreshAdmin();
+    }
+
+    function showMsg(type, text) {
+      const el = document.getElementById('cf-msg');
+      el.className = `cf-msg ${type}`; el.style.display = 'block'; el.textContent = text;
+    }
+
+    // ── Admin ─────────────────────────────────────────────────────
+    function toggleAdminPw() {
+      const p = document.getElementById('admin-pw-wrap2');
+      p.style.display = p.style.display === 'block' ? 'none' : 'block';
+    }
+    function checkAdminPw2() {
+      const pw = document.getElementById('admin-pw2').value;
+      if (pw === ADMIN_PW) {
+        document.getElementById('admin-pw-wrap2').style.display = 'none';
+        document.getElementById('contacts-panel').style.display = 'block';
+        refreshAdmin();
+      } else {
+        document.getElementById('admin-pw2-err').style.display = 'block';
+        document.getElementById('admin-pw2').value = '';
+      }
+    }
+
+    function refreshAdmin() {
+      const contacts = getContacts();
+      const now = new Date();
+      const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+      document.getElementById('ct-total').textContent = contacts.length;
+      document.getElementById('ct-mailing').textContent = contacts.filter(c => c.mailingList).length;
+      document.getElementById('ct-speaking').textContent = contacts.filter(c => c.reason === 'speaking').length;
+      document.getElementById('ct-new').textContent = contacts.filter(c => new Date(c.submittedAt) > weekAgo).length;
+      renderContacts();
+    }
+
+    function renderContacts() {
+      const search     = (document.getElementById('ct-search').value || '').toLowerCase();
+      const filter     = document.getElementById('ct-filter').value;
+      const mailFilter = document.getElementById('ct-mail-filter').value;
+      let contacts = getContacts();
+
+      if (search) contacts = contacts.filter(c =>
+        (c.firstName + ' ' + c.lastName).toLowerCase().includes(search) ||
+        c.email.toLowerCase().includes(search) ||
+        (c.city || '').toLowerCase().includes(search)
+      );
+      if (filter) contacts = contacts.filter(c => c.reason === filter);
+      if (mailFilter === 'yes') contacts = contacts.filter(c => c.mailingList);
+      if (mailFilter === 'no')  contacts = contacts.filter(c => !c.mailingList);
+
+      contacts.sort((a, b) => {
+        let av = a[ctSortKey] || '', bv = b[ctSortKey] || '';
+        return av < bv ? -ctSortDir : av > bv ? ctSortDir : 0;
+      });
+
+      const total = contacts.length;
+      const pages = Math.max(1, Math.ceil(total / CT_PER_PAGE));
+      if (ctPage > pages) ctPage = 1;
+      const slice = contacts.slice((ctPage - 1) * CT_PER_PAGE, ctPage * CT_PER_PAGE);
+
+      const tbody = document.getElementById('ct-tbody');
+      if (!slice.length) {
+        tbody.innerHTML = '<tr><td colspan="9" class="ct-empty">No contact records yet.</td></tr>';
+      } else {
+        const reasonBadge = { speaking:'badge-speak', books:'badge-books', press:'badge-press', hello:'badge-hello', caregiver:'badge-mail', shopify:'badge-books' };
+        const reasonLabel = { speaking:'Speaking', books:'Books', press:'Press', hello:'Hello', caregiver:'Caregiver', shopify:'Merch' };
+        tbody.innerHTML = slice.map(c => {
+          const date = new Date(c.submittedAt).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+          const loc  = [c.city, c.state].filter(Boolean).join(', ') || '—';
+          const badge = reasonBadge[c.reason] || 'badge-hello';
+          const label = reasonLabel[c.reason] || c.reason;
+          const msg = (c.message || '').substring(0, 45) + ((c.message || '').length > 45 ? '…' : '');
+          return `<tr>
+            <td style="font-weight:600;white-space:nowrap">${c.firstName} ${c.lastName || ''}</td>
+            <td style="color:rgba(251,247,240,0.65);font-size:0.8rem">${c.email}</td>
+            <td style="color:rgba(251,247,240,0.55);font-size:0.8rem">${c.phone || '—'}</td>
+            <td style="color:rgba(251,247,240,0.55);font-size:0.8rem">${loc}</td>
+            <td><span class="badge ${badge}">${label}</span></td>
+            <td style="text-align:center">${c.mailingList ? '<span style="color:var(--gold2);">✓</span>' : '<span style="color:rgba(251,247,240,0.2)">—</span>'}</td>
+            <td style="color:rgba(251,247,240,0.5);font-size:0.78rem;white-space:nowrap">${date}</td>
+            <td style="color:rgba(251,247,240,0.5);font-size:0.78rem;max-width:180px" title="${(c.message||'').replace(/"/g,'&quot;')}">${msg || '—'}</td>
+            <td><button class="del-btn2" onclick="deleteContact(${c.id})" title="Remove">✕</button></td>
+          </tr>`;
+        }).join('');
+      }
+
+      // Pagination
+      const pg = document.getElementById('ct-pagination');
+      pg.innerHTML = '';
+      for (let i = 1; i <= pages; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        if (i === ctPage) btn.classList.add('active');
+        btn.onclick = () => { ctPage = i; renderContacts(); };
+        pg.appendChild(btn);
+      }
+    }
+
+    function sortContacts(key) {
+      if (ctSortKey === key) ctSortDir *= -1; else { ctSortKey = key; ctSortDir = -1; }
+      renderContacts();
+    }
+
+    function deleteContact(id) {
+      if (!confirm('Remove this contact record?')) return;
+      saveContacts(getContacts().filter(c => c.id !== id));
+      refreshAdmin();
+    }
+
+    function clearContacts() {
+      if (!confirm('Delete ALL contact records? This cannot be undone.')) return;
+      localStorage.removeItem(CONTACTS_KEY);
+      refreshAdmin();
+    }
+
+    function exportContacts() {
+      const contacts = getContacts();
+      if (!contacts.length) { alert('No contact records to export.'); return; }
+      const header = 'First Name,Last Name,Email,Phone,City,State,Reason,Mailing List,Message,Submitted,Source';
+      const rows = contacts.map(c =>
+        [c.firstName, c.lastName, c.email, c.phone, c.city, c.state, c.reason,
+         c.mailingList ? 'Yes' : 'No',
+         (c.message||'').replace(/,/g,';').replace(/\n/g,' '),
+         c.submittedAt, c.source]
+        .map(v => '"' + String(v||'').replace(/"/g,'""') + '"').join(',')
+      );
+      const csv = [header, ...rows].join('\n');
+      const blob = new Blob([csv], {type:'text/csv'});
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href = url;
+      a.download = 'grandpadad_contacts_' + new Date().toISOString().slice(0,10) + '.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

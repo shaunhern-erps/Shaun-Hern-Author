@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quotes & Merch — Shaun Hern GrandpaDad</title>
+  <meta name="description" content="100 quotes from Shaun Hern's GrandpaDad books — on faith, parenting, grace, and showing up. Available on T-shirts and merchandise." />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    /* ── QUOTES PAGE SPECIFIC ── */
+    .quotes-hero {
+      background: linear-gradient(135deg, #3A1E08 0%, #5C3018 100%);
+      padding: 8rem 0 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .quotes-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(85deg,transparent,transparent 80px,rgba(255,255,255,0.015) 80px,rgba(255,255,255,0.015) 81px);
+    }
+    .quotes-hero img.hero-logo {
+      max-width: 320px; width: 90%;
+      margin: 0 auto 1.5rem;
+      display: block;
+      mix-blend-mode: screen;
+      opacity: 0.95;
+    }
+    .quotes-hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; color: #FAF6F1;
+      margin-bottom: 0.8rem;
+    }
+    .quotes-hero p {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.05rem; color: rgba(251,247,240,0.78);
+      max-width: 560px; margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+    .shopify-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.92rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 1rem 2.4rem;
+      text-decoration: none; border-radius: 2px;
+      box-shadow: 0 4px 16px rgba(184,96,40,0.4);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .shopify-btn:hover { background: #4A2E14; transform: translateY(-2px); }
+    .shopify-btn svg { vertical-align: middle; margin-right: 0.5rem; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      background: var(--paper2);
+      border-bottom: 1px solid var(--parchment);
+      padding: 1.2rem 0;
+      position: sticky; top: 48px; z-index: 90;
+    }
+    .filter-inner {
+      max-width: 1080px; margin: 0 auto; padding: 0 2.5rem;
+      display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--brown2); margin-right: 0.3rem;
+    }
+    .filter-btn {
+      padding: 0.38rem 1rem;
+      background: var(--paper);
+      border: 1.5px solid var(--parchment);
+      border-radius: 20px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.8rem; font-weight: 700;
+      color: var(--brown2);
+      cursor: pointer; transition: all 0.18s;
+      white-space: nowrap;
+    }
+    .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .filter-btn.active {
+      background: var(--gold); border-color: var(--gold);
+      color: #fff;
+    }
+    .search-wrap {
+      margin-left: auto;
+    }
+    .search-wrap input {
+      padding: 0.42rem 1rem;
+      border: 1.5px solid var(--parchment);
+      border-radius: 20px;
+      background: var(--paper);
+      font-family: 'Nunito', sans-serif; font-size: 0.85rem;
+      color: var(--ink); outline: none;
+      width: 200px; transition: border-color 0.2s;
+    }
+    .search-wrap input:focus { border-color: var(--gold); }
+    .search-wrap input::placeholder { color: rgba(77,45,15,0.35); }
+
+    /* ── QUOTES GRID ── */
+    #quotes-section { background: var(--paper); padding: 3.5rem 0 5rem; }
+    .quotes-count {
+      font-family: 'Nunito', sans-serif; font-size: 0.85rem;
+      color: var(--brown2); margin-bottom: 2rem;
+      opacity: 0.7;
+    }
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .quote-card {
+      background: var(--paper2);
+      border: 1px solid var(--parchment);
+      border-radius: 3px;
+      padding: 1.8rem;
+      display: flex; flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      transition: box-shadow 0.22s, transform 0.18s, border-color 0.18s;
+      cursor: default;
+    }
+    .quote-card:hover {
+      box-shadow: 0 8px 30px var(--shadow2);
+      transform: translateY(-2px);
+      border-color: rgba(184,96,40,0.25);
+    }
+    .quote-card.hidden { display: none; }
+    .quote-cat {
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem; color: var(--gold);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .quote-num {
+      position: absolute; top: 1rem; right: 1.2rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      color: rgba(77,45,15,0.2);
+    }
+    .quote-text {
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem; font-style: italic;
+      line-height: 1.65; color: var(--ink);
+      flex: 1;
+    }
+    .quote-text.short { font-size: 1.25rem; }
+    .quote-actions {
+      display: flex; gap: 0.6rem; align-items: center;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--parchment);
+    }
+    .quote-shop-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.45rem 1rem;
+      background: var(--gold);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; border-radius: 2px;
+      transition: background 0.18s;
+      flex: 1; justify-content: center;
+    }
+    .quote-shop-btn:hover { background: var(--brown); }
+    .quote-copy-btn {
+      padding: 0.45rem 0.8rem;
+      background: transparent;
+      border: 1.5px solid var(--parchment);
+      border-radius: 2px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--brown2); cursor: pointer;
+      transition: all 0.18s; white-space: nowrap;
+    }
+    .quote-copy-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .quote-copy-btn.copied { border-color: var(--sage); color: var(--sage); }
+
+    /* ── CATEGORY COLOR DOTS ── */
+    .cat-dot {
+      display: inline-block; width: 8px; height: 8px;
+      border-radius: 50%; flex-shrink: 0; margin-top: 2px;
+    }
+    .dot-signature { background: var(--gold); }
+    .dot-faith     { background: #5C6E3A; }
+    .dot-resilience{ background: #7A3200; }
+    .dot-grace     { background: #9C6030; }
+    .dot-parenting { background: #4E7258; }
+    .dot-identity  { background: #2D5472; }
+    .dot-humor     { background: #8B4513; }
+
+    /* ── EMPTY STATE ── */
+    .no-results {
+      text-align: center; padding: 4rem 2rem;
+      font-family: 'Fraunces', serif; font-style: italic;
+      color: var(--brown2); font-size: 1.1rem;
+      grid-column: 1/-1;
+    }
+
+    /* ── SHOPIFY CTA BAND ── */
+    .shopify-band {
+      background: var(--brown);
+      padding: 4rem 0; text-align: center;
+    }
+    .shopify-band h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: #FAF6F1; margin-bottom: 0.8rem;
+    }
+    .shopify-band p {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem; color: rgba(251,247,240,0.75);
+      max-width: 500px; margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+    .shopify-band .sub-note {
+      margin-top: 1.2rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem; color: rgba(251,247,240,0.5);
+    }
+
+    @media (max-width: 640px) {
+      .quotes-grid { grid-template-columns: 1fr; }
+      .filter-inner { gap: 0.5rem; }
+      .search-wrap { width: 100%; margin-left: 0; }
+      .search-wrap input { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-brand" href="/">Shaun <span>Hern</span></a>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/books.html">Books</a></li>
+      <li><a href="/speaking.html">Speaking</a></li>
+      <li><a href="/community.html">Community</a></li>
+      <li><a href="/quotes.html" class="active">Quotes & Merch</a></li>
+      <li><a href="/signup.html">Newsletter</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="quotes-hero">
+    <img src="/images/logo-transparent.png" alt="Shaun Hern GrandpaDad" class="hero-logo" />
+    <h1>100 Quotes. One Honest Life.</h1>
+    <p>Every line pulled directly from <em>GrandpaDad Adventures</em> and <em>Guide My Decisions. Steady My Emotions.</em> — real words from real moments. Now on T-shirts, because some things deserve to be worn.</p>
+    <a href="https://shaunhern.myshopify.com" target="_blank" rel="noopener" class="shopify-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Shop the GrandpaDad Store
+    </a>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="filter-inner">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-btn active" data-cat="all">All 100</button>
+      <button class="filter-btn" data-cat="signature">Core</button>
+      <button class="filter-btn" data-cat="faith">Faith</button>
+      <button class="filter-btn" data-cat="resilience">Resilience</button>
+      <button class="filter-btn" data-cat="grace">Grace</button>
+      <button class="filter-btn" data-cat="parenting">Parenting</button>
+      <button class="filter-btn" data-cat="identity">Identity</button>
+      <button class="filter-btn" data-cat="humor">Humor</button>
+      <div class="search-wrap">
+        <input type="text" id="quote-search" placeholder="Search quotes…" />
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTES GRID -->
+  <section id="quotes-section">
+    <div class="container">
+      <p class="quotes-count" id="quotes-count">Showing all 100 quotes</p>
+      <div class="quotes-grid" id="quotes-grid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOPIFY CTA -->
+  <div class="shopify-band">
+    <div class="container">
+      <h2>Wear the Words That Carried You</h2>
+      <p>Every quote is available on T-shirts, mugs, and more. Printed on demand. Ships to your door. Real words for real people.</p>
+      <a href="https://shaunhern.myshopify.com" target="_blank" rel="noopener" class="shopify-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Visit shaunhern.myshopify.com
+      </a>
+      <p class="sub-note">All quotes © Shaun Hern, drawn from GrandpaDad Adventures &amp; Guide My Decisions. Steady My Emotions. (2026)</p>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-brand">Shaun <span>Hern</span> · GrandpaDad · Author &amp; Speaker</p>
+    <p>© 2026 Shaun Hern. All rights reserved. |
+      <a href="/books.html">Books</a> ·
+      <a href="/quotes.html">Quotes &amp; Merch</a> ·
+      <a href="/signup.html">Newsletter</a> ·
+      <a href="/contact.html">Contact</a>
+    </p>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+  const QUOTES = [
+    ["Guide my decisions. Steady my emotions.","Core","signature"],
+    ["GrandpaDad — old enough to know better, young enough to still be doing this.","Core","signature"],
+    ["Still walking. Still praying. Still learning.","Core","signature"],
+    ["Still standing. Still thankful.","Core","signature"],
+    ["The mess means I'm living.","Core","signature"],
+    ["Sticky. Wild. Loved.","Core","signature"],
+    ["This is not a parenting manual.","Core","signature"],
+    ["Repair is holier than perfection.","Core","signature"],
+    ["Chaos isn't a problem to be solved. It's a condition.","Core","signature"],
+    ["Maybe doing it right isn't the point. Maybe being there is.","Core","signature"],
+    ["Steady doesn't mean emotionless. It means anchored.","Faith & Steadiness","faith"],
+    ["Faith is caught more than taught.","Faith & Steadiness","faith"],
+    ["Kids learn God by watching stress, not sermons.","Faith & Steadiness","faith"],
+    ["God keeps better records than we do.","Faith & Steadiness","faith"],
+    ["Guidance didn't shout. It whispered wait.","Faith & Steadiness","faith"],
+    ["Dependence is not a phase. It is the shape of faith.","Faith & Steadiness","faith"],
+    ["Faithfulness is return extended over time.","Faith & Steadiness","faith"],
+    ["Steady enough does not mean perfect. It means anchored.","Faith & Steadiness","faith"],
+    ["Grace doesn't remove the mess. It meets you in it.","Faith & Steadiness","faith"],
+    ["Grace was never waiting at the end of the mess. It was moving through it all along.","Faith & Steadiness","faith"],
+    ["Not a lighter load — just enough steadiness to carry it.","Faith & Steadiness","faith"],
+    ["This isn't just survival. It's formation.","Faith & Steadiness","faith"],
+    ["You are not behind. You are walking.","Faith & Steadiness","faith"],
+    ["Some burdens sit quietly at the edge of your bed at 2:17 a.m.","Faith & Steadiness","faith"],
+    ["Control says it depends on you. Stewardship says it was never yours to begin with.","Faith & Steadiness","faith"],
+    ["Still standing — not because I'm unbreakable, because I'm still here.","Resilience & Grit","resilience"],
+    ["This wasn't a chore. This was tactical survival.","Resilience & Grit","resilience"],
+    ["Strength sometimes looks like staying on the floor a moment longer than you planned.","Resilience & Grit","resilience"],
+    ["Fatigue strips away performance.","Resilience & Grit","resilience"],
+    ["Love doesn't end when energy does.","Resilience & Grit","resilience"],
+    ["Something steadier has to take over when willpower runs out.","Resilience & Grit","resilience"],
+    ["Still here. Still responsible. Still in it.","Resilience & Grit","resilience"],
+    ["It was still the valley. It just wasn't empty ground. And neither was I.","Resilience & Grit","resilience"],
+    ["You are not disqualified by struggle. You are being formed inside it.","Resilience & Grit","resilience"],
+    ["The weight doesn't mean you're abandoned. It may mean you're entrusted.","Resilience & Grit","resilience"],
+    ["Strength is staying when leaving would be easier.","Resilience & Grit","resilience"],
+    ["There's no perfect moment to begin again.","Resilience & Grit","resilience"],
+    ["Stop bracing for the right time. Just begin again — one ordinary morning at a time.","Resilience & Grit","resilience"],
+    ["The past explains you. It doesn't excuse you.","Resilience & Grit","resilience"],
+    ["Not everything needs to be fixed. Some things just need to be witnessed.","Resilience & Grit","resilience"],
+    ["Peace, in this house, always comes wrapped in melted chocolate.","Grace in the Mess","grace"],
+    ["Grace shows up most clearly when the order falls apart.","Grace in the Mess","grace"],
+    ["What used to feel small is actually sacred.","Grace in the Mess","grace"],
+    ["The small things are where love is proven.","Grace in the Mess","grace"],
+    ["The interruptions were the ministry.","Grace in the Mess","grace"],
+    ["Love is flexible, patient, and present even when the plan is broken.","Grace in the Mess","grace"],
+    ["Imagination isn't small — it's sacred.","Grace in the Mess","grace"],
+    ["God's grace is the only thing holding any of this together.","Grace in the Mess","grace"],
+    ["Grace is found in staying present when it's hard.","Grace in the Mess","grace"],
+    ["Healing doesn't always come from fixing what's broken. Sometimes it's love that's small, sticky, and unreasonably sweet.","Grace in the Mess","grace"],
+    ["Some love doesn't get acknowledged. That doesn't make it wasted.","Grace in the Mess","grace"],
+    ["Love doesn't need to echo to be real.","Grace in the Mess","grace"],
+    ["Chaos, I can clean. Silence… that's harder.","Grace in the Mess","grace"],
+    ["I'm just holding two small hands for a little while, trusting God is holding all of us.","Grace in the Mess","grace"],
+    ["Two kids crunching ice in the back seat. Nothing fancy. Just joy.","Grace in the Mess","grace"],
+    ["I'm not raising perfect kids. I'm raising whole ones.","Parenting Wisdom","parenting"],
+    ["Children don't need flawless authority. They need repairable love.","Parenting Wisdom","parenting"],
+    ["Discipline without shame leaves room for repair.","Parenting Wisdom","parenting"],
+    ["He always came back.","Parenting Wisdom","parenting"],
+    ["There is no clean finish line in parenting.","Parenting Wisdom","parenting"],
+    ["Your children don't need you finished. They need you faithful.","Parenting Wisdom","parenting"],
+    ["It's not about perfection. It's about persistence.","Parenting Wisdom","parenting"],
+    ["They won't remember this. But I will.","Parenting Wisdom","parenting"],
+    ["Their bodies will remember. And I will too.","Parenting Wisdom","parenting"],
+    ["I used to think I was teaching my kids how to live. Now I know they're teaching me how to trust.","Parenting Wisdom","parenting"],
+    ["Not that things got easier — I stopped needing them to.","Parenting Wisdom","parenting"],
+    ["Some things are allowed to unfold in their own time.","Parenting Wisdom","parenting"],
+    ["Quiet patience versus loud ambition — honestly, they both win.","Parenting Wisdom","parenting"],
+    ["Growth is quieter than you expect.","Parenting Wisdom","parenting"],
+    ["Did I show up? That's the work now.","Parenting Wisdom","parenting"],
+    ["61 years old, single dad again.","GrandpaDad Identity","identity"],
+    ["Old enough to know better, young enough to still be doing this.","GrandpaDad Identity","identity"],
+    ["GrandpaDad means I'm not trying to prove anything.","GrandpaDad Identity","identity"],
+    ["I'm measuring success in presence.","GrandpaDad Identity","identity"],
+    ["Not chasing perfect parenting.","GrandpaDad Identity","identity"],
+    ["I'm not ahead of you. I'm not an expert. I'm just GrandpaDad, still showing up.","GrandpaDad Identity","identity"],
+    ["If you've ever loved someone so deeply it wore you out, welcome.","GrandpaDad Identity","identity"],
+    ["You're a brave man. — It's an adventure every day.","GrandpaDad Identity","identity"],
+    ["They'll remember all this, you know.","GrandpaDad Identity","identity"],
+    ["Not everything needs to be solved. Sometimes it just needs to be lived.","GrandpaDad Identity","identity"],
+    ["This is my art. You're welcome.","Humor & Short Punchy Lines","humor"],
+    ["I moppin'.","Humor & Short Punchy Lines","humor"],
+    ["I handsome!","Humor & Short Punchy Lines","humor"],
+    ["Yeah… this feels about right.","Humor & Short Punchy Lines","humor"],
+    ["Some battles you win, and some you just join.","Humor & Short Punchy Lines","humor"],
+    ["I'd take a hundred mop bucket baths over one more quiet, empty evening.","Humor & Short Punchy Lines","humor"],
+    ["He may not have picked the snack, but he absolutely claimed victory.","Humor & Short Punchy Lines","humor"],
+    ["Praying no one knocked over the cement brontosaurus on my watch.","Humor & Short Punchy Lines","humor"],
+    ["Living in the space between fear and wonder.","Humor & Short Punchy Lines","humor"],
+    ["Faith looks like stiff arms, pajama shorts, and a Pocoyo shuffle on the back porch.","Humor & Short Punchy Lines","humor"],
+    ["Case closed. I never got a gummy. But I got a story.","Humor & Short Punchy Lines","humor"],
+    ["This is not what bingo stamps are for.","Humor & Short Punchy Lines","humor"],
+    ["I'm still me.","Humor & Short Punchy Lines","humor"],
+    ["No agenda. No performance. Just fully, beautifully herself.","Humor & Short Punchy Lines","humor"],
+    ["My brain's usually running faster than a toddler on a sugar high.","Humor & Short Punchy Lines","humor"],
+    ["Laughter is how I survive the not-funny parts.","Humor & Short Punchy Lines","humor"],
+    ["Loud, sticky, and wildly out of control — and somehow, that turns out to be enough.","Humor & Short Punchy Lines","humor"],
+    ["Chaos, grace, and the kind of love that takes over the whole bed.","Humor & Short Punchy Lines","humor"],
+    ["Still tired. Still learning. Still standing.","Humor & Short Punchy Lines","humor"],
+    ["And somehow — still thankful.","Humor & Short Punchy Lines","humor"]
+  ];
+
+  const SHOPIFY = 'https://shaunhern.myshopify.com';
+  const DOT_COLORS = {
+    signature:'#B86028', faith:'#5C6E3A', resilience:'#7A3200',
+    grace:'#9C6030', parenting:'#4E7258', identity:'#2D5472', humor:'#8B4513'
+  };
+
+  let activeFilter = 'all';
+  let searchTerm = '';
+
+  function buildGrid() {
+    const grid = document.getElementById('quotes-grid');
+    const countEl = document.getElementById('quotes-count');
+    grid.innerHTML = '';
+
+    const filtered = QUOTES.filter((q, i) => {
+      const catMatch = activeFilter === 'all' || q[2] === activeFilter;
+      const searchMatch = !searchTerm || q[0].toLowerCase().includes(searchTerm);
+      return catMatch && searchMatch;
+    });
+
+    countEl.textContent = filtered.length === 100
+      ? 'Showing all 100 quotes'
+      : `Showing ${filtered.length} of 100 quotes`;
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="no-results">No quotes match that search — try a different word.</div>';
+      return;
+    }
+
+    filtered.forEach((q, i) => {
+      const [text, cat, slug] = q;
+      const isShort = text.length < 60;
+      const encoded = encodeURIComponent(text + ' — Shaun Hern, GrandpaDad');
+      const shopUrl = `${SHOPIFY}/search?q=${encodeURIComponent(text.substring(0, 40))}`;
+      const num = QUOTES.indexOf(q) + 1;
+
+      const card = document.createElement('div');
+      card.className = 'quote-card fade-up';
+      card.dataset.cat = slug;
+      card.innerHTML = `
+        <span class="quote-num">#${num}</span>
+        <div class="quote-cat">
+          <span class="cat-dot dot-${slug}"></span>
+          ${cat}
+        </div>
+        <p class="quote-text${isShort ? ' short' : ''}">${text.replace(/'/g,"'").replace(/—/g,"—")}</p>
+        <div class="quote-actions">
+          <a href="${shopUrl}" target="_blank" rel="noopener" class="quote-shop-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            Shop This
+          </a>
+          <button class="quote-copy-btn" onclick="copyQuote(this, '${text.replace(/'/g,"\\'").replace(/"/g,"&quot;")}')">Copy</button>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    // Re-trigger fade animations
+    document.querySelectorAll('.quote-card.fade-up').forEach(el => {
+      observer.observe(el);
+    });
+  }
+
+  function copyQuote(btn, text) {
+    navigator.clipboard.writeText(`"${text}" — Shaun Hern, GrandpaDad`).then(() => {
+      btn.textContent = '✓ Copied';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.cat;
+      buildGrid();
+    });
+  });
+
+  // Search
+  let searchTimer;
+  document.getElementById('quote-search').addEventListener('input', e => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      searchTerm = e.target.value.toLowerCase().trim();
+      buildGrid();
+    }, 200);
+  });
+
+  buildGrid();
+  </script>
+</body>
+</html>

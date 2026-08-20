@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Newsletter — Shaun Hern GrandpaDad</title>
+  <meta name="description" content="Join the GrandpaDad community newsletter." />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <nav>
+    <a class="nav-brand" href="/">Shaun <span>Hern</span></a>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/books.html">Books</a></li>
+      <li><a href="/speaking.html">Speaking</a></li>
+      <li><a href="/community.html">Community</a></li>
+      <li><a href="/quotes.html">Quotes &amp; Merch</a></li>
+      <li><a href="/signup.html" class="active">Newsletter</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <div style="height:48px;"></div>
+  <section id="signup">
+    <div class="container">
+      <div class="signup-inner">
+        <div class="signup-left fade-up">
+          <p class="section-label">Stay Connected</p>
+          <h2 class="section-title">Join the GrandpaDad Community</h2>
+          <p class="section-body">
+            Not a newsletter in the polished sense. More like a note from the porch — real stories, honest faith, the occasional blue-paint disaster, and Scripture that actually meets you where you are. No fluff. No spam. Just the kind of company that matters.
+          </p>
+          <ul class="signup-perks">
+            <li>Early access to new chapters and devotionals</li>
+            <li>Behind-the-scenes stories from the GrandpaDad life</li>
+            <li>Scripture reflections on ordinary parenting moments</li>
+            <li>Speaking event announcements and book news</li>
+            <li>Encouragement for caregivers, parents, and believers</li>
+          </ul>
+          <div class="signup-stat">
+            <span class="stat-number" id="stat-count">—</span>
+            <span class="stat-label">community members and growing.<br />Come as you are.</span>
+          </div>
+        </div>
+        <div class="signup-form-wrap fade-up">
+          <h3>You Belong Here</h3>
+          <p class="form-sub">Join free. Unsubscribe anytime. Shaun reads the replies.</p>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="sig-first">First Name *</label>
+              <input type="text" id="sig-first" placeholder="Grace" autocomplete="given-name" />
+            </div>
+            <div class="form-field">
+              <label for="sig-last">Last Name</label>
+              <input type="text" id="sig-last" placeholder="Johnson" autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="sig-email">Email Address *</label>
+            <input type="email" id="sig-email" placeholder="grace@example.com" autocomplete="email" />
+          </div>
+          <div class="form-field">
+            <label for="sig-interest">I'm most interested in…</label>
+            <select id="sig-interest">
+              <option value="">Select one (optional)</option>
+              <option value="books">Books &amp; Memoir</option>
+              <option value="devotional">Devotional &amp; Faith Writing</option>
+              <option value="speaking">Speaking &amp; Events</option>
+              <option value="all">All of it!</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="sig-note">A word for Shaun (optional)</label>
+            <textarea id="sig-note" style="height:70px;resize:none;" placeholder="Your story, a prayer request, or just hello…"></textarea>
+          </div>
+          <div class="form-msg" id="sig-msg"></div>
+          <button class="btn-primary" id="sig-btn" onclick="handleSignup()" style="width:100%;border:none;cursor:pointer;font-size:0.95rem;padding:1rem;">
+            Join the Community
+          </button>
+        </div>
+      </div>
+
+      <!-- Admin toggle -->
+      <div class="admin-toggle-wrap">
+        <button class="admin-toggle" onclick="toggleAdminPrompt()">⚙ Admin</button>
+        <div class="admin-password-prompt" id="admin-prompt">
+          <input type="password" id="admin-pw" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')checkAdminPw()" />
+          <button class="btn-admin" onclick="checkAdminPw()" style="width:100%;">Access Dashboard</button>
+          <p id="admin-pw-err" style="color:var(--rust);font-size:0.8rem;margin-top:0.5rem;display:none;">Incorrect password.</p>
+        </div>
+      </div>
+
+      <!-- Admin Dashboard -->
+      <div id="admin-panel">
+        <div class="admin-header">
+          <h3>Subscriber Dashboard</h3>
+          <div class="admin-stats">
+            <div class="admin-stat-card"><span class="asn" id="admin-total">0</span><span class="asl">Total</span></div>
+            <div class="admin-stat-card"><span class="asn" id="admin-books">0</span><span class="asl">Books</span></div>
+            <div class="admin-stat-card"><span class="asn" id="admin-devot">0</span><span class="asl">Devotional</span></div>
+            <div class="admin-stat-card"><span class="asn" id="admin-speak">0</span><span class="asl">Speaking</span></div>
+          </div>
+        </div>
+        <div class="admin-controls">
+          <input type="text" id="admin-search" placeholder="Search by name or email…" oninput="renderTable()" />
+          <select id="admin-filter" onchange="renderTable()" style="color:var(--cream);">
+            <option value="">All interests</option>
+            <option value="books">Books</option>
+            <option value="devotional">Devotional</option>
+            <option value="speaking">Speaking</option>
+            <option value="all">All of it</option>
+          </select>
+          <button class="btn-admin" onclick="exportCSV()">⬇ Export CSV</button>
+          <button class="btn-admin danger" onclick="clearAll()">✕ Clear All</button>
+          <button class="btn-admin" onclick="document.getElementById('admin-panel').style.display='none'">Close</button>
+        </div>
+        <div class="sub-table-wrap">
+          <table class="sub-table">
+            <thead>
+              <tr>
+                <th onclick="sortBy('firstName')">Name ↕</th>
+                <th onclick="sortBy('email')">Email ↕</th>
+                <th onclick="sortBy('interest')">Interest ↕</th>
+                <th onclick="sortBy('joinedAt')">Joined ↕</th>
+                <th>Note</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="sub-tbody"></tbody>
+          </table>
+        </div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <p class="footer-brand">Shaun <span>Hern</span> · GrandpaDad · Author &amp; Speaker</p>
+    <p>© 2026 Shaun Hern. All rights reserved. |
+      <a href="/books.html">Books</a> ·
+      <a href="/speaking.html">Speaking</a> ·
+      <a href="/signup.html">Newsletter</a> ·
+      <a href="/contact.html">Contact</a>
+    </p>
+  </footer>
+    <script src="/js/main.js"></script>
+  <script src="/js/signup.js"></script>
+</body>
+</html>
