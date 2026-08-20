@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shaun Hern — GrandpaDad | Author & Speaker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #FAF6EE;
+      --warm-white: #FDFAF5;
+      --ink: #1C1610;
+      --brown: #5C3D1E;
+      --gold: #C8922A;
+      --gold-light: #E8B84B;
+      --rust: #A0442C;
+      --sage: #5A7A5C;
+      --sage-light: #8FAD91;
+      --parchment: #EDE4D0;
+      --shadow: rgba(28,22,16,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(250,246,238,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(200,146,42,0.2);
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--brown);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--gold); }
+    nav ul {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    nav ul a {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brown);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 6rem 5rem;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-eyebrow {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 5vw, 5.2rem);
+      font-weight: 900;
+      line-height: 1.02;
+      color: var(--brown);
+      margin-bottom: 0.3rem;
+    }
+    .hero-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+    .hero-desc {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: #4a3825;
+      max-width: 420px;
+      margin-bottom: 2.8rem;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--brown); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-block;
+      border: 2px solid var(--brown);
+      color: var(--brown);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: var(--brown); color: #fff; }
+
+    .hero-right {
+      position: relative;
+      background: var(--brown);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 30% 40%, rgba(200,146,42,0.18) 0%, transparent 55%),
+        radial-gradient(circle at 75% 70%, rgba(160,68,44,0.15) 0%, transparent 50%);
+    }
+    .hero-photo-placeholder {
+      position: relative;
+      z-index: 2;
+      width: 340px;
+      height: 420px;
+      background: rgba(255,255,255,0.06);
+      border: 2px solid rgba(200,146,42,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: rgba(250,246,238,0.6);
+    }
+    .hero-photo-placeholder svg {
+      width: 64px; height: 64px;
+      opacity: 0.5;
+    }
+    .hero-photo-placeholder p {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .hero-quote-block {
+      position: absolute;
+      bottom: 3rem;
+      left: -1.5rem;
+      z-index: 3;
+      background: var(--cream);
+      padding: 1.4rem 1.8rem;
+      max-width: 300px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+      border-left: 4px solid var(--gold);
+    }
+    .hero-quote-block blockquote {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+    .hero-quote-block cite {
+      display: block;
+      margin-top: 0.6rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 0; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 2.5rem; }
+    .section-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(200,146,42,0.3);
+      max-width: 80px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+    .section-body {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #4a3825;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--warm-white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+    .tag {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--parchment);
+      background: var(--parchment);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--brown);
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-card {
+      background: var(--brown);
+      color: var(--cream);
+      padding: 3rem;
+      position: relative;
+    }
+    .about-card::before {
+      content: '"';
+      font-family: 'Playfair Display', serif;
+      font-size: 8rem;
+      line-height: 0.8;
+      color: var(--gold);
+      opacity: 0.4;
+      position: absolute;
+      top: 1.5rem;
+      left: 2rem;
+    }
+    .about-card p {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      position: relative;
+      z-index: 1;
+      font-style: italic;
+    }
+    .about-card .card-author {
+      margin-top: 1.5rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-style: normal;
+    }
+    .about-accent {
+      position: absolute;
+      bottom: -1.2rem;
+      right: -1.2rem;
+      width: 80%;
+      height: 80%;
+      border: 2px solid var(--gold);
+      z-index: -1;
+    }
+
+    /* ── BOOKS ── */
+    #books { background: var(--cream); }
+    .books-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3.5rem;
+    }
+    .book-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      padding: 2.5rem;
+      background: var(--warm-white);
+      border: 1px solid var(--parchment);
+      transition: box-shadow 0.25s, transform 0.2s;
+    }
+    .book-card:hover {
+      box-shadow: 0 12px 40px var(--shadow);
+      transform: translateY(-3px);
+    }
+    .book-cover {
+      width: 100px;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 0.8rem;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.3;
+      position: relative;
+    }
+    .book-cover.adventures {
+      background: var(--brown);
+      color: var(--cream);
+    }
+    .book-cover.guide {
+      background: var(--sage);
+      color: var(--cream);
+    }
+    .book-cover-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+    .book-info { display: flex; flex-direction: column; gap: 0.5rem; }
+    .book-genre {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .book-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1.3;
+    }
+    .book-desc {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: #5a4535;
+      flex: 1;
+    }
+    .book-cta {
+      display: inline-block;
+      margin-top: 1rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 1px;
+      transition: color 0.2s;
+    }
+    .book-cta:hover { color: var(--brown); }
+
+    /* ── SPEAKING ── */
+    #speaking {
+      background: var(--brown);
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    #speaking::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 80% 20%, rgba(200,146,42,0.12) 0%, transparent 55%);
+    }
+    #speaking .section-label { color: var(--gold); }
+    #speaking .section-title { color: var(--cream); }
+    #speaking .section-body { color: rgba(250,246,238,0.8); }
+    .speaking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3.5rem;
+      position: relative;
+    }
+    .speaking-topics { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; }
+    .speaking-topics li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.4rem 1.6rem;
+      background: rgba(255,255,255,0.06);
+      border-left: 3px solid var(--gold);
+    }
+    .topic-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .topic-info h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
+    .topic-info p {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: rgba(250,246,238,0.7);
+    }
+    .speaking-right { display: flex; flex-direction: column; justify-content: center; }
+    .featured-talk {
+      background: rgba(200,146,42,0.15);
+      border: 1px solid rgba(200,146,42,0.35);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    .featured-talk .talk-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .featured-talk h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
+    }
+    .featured-talk p {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: rgba(250,246,238,0.75);
+      margin-bottom: 1.2rem;
+    }
+    .featured-talk .venue {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.8;
+    }
+
+    /* ── COMMUNITY ── */
+    #community { background: var(--parchment); }
+    .community-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+    .comm-card {
+      background: var(--warm-white);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .comm-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 30px var(--shadow);
+    }
+    .comm-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1.2rem;
+    }
+    .comm-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--brown);
+      margin-bottom: 0.7rem;
+    }
+    .comm-card p {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: #5a4535;
+    }
+
+    /* ── FAITH BANNER ── */
+    #faith {
+      background: var(--sage);
+      padding: 4rem 0;
+      text-align: center;
+    }
+    #faith .container { max-width: 720px; }
+    #faith blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.55;
+      margin-bottom: 1rem;
+    }
+    #faith cite {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(250,246,238,0.6);
+      font-style: normal;
+    }
+
+    /* ── CONNECT ── */
+    #connect { background: var(--cream); }
+    .connect-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .connect-form { display: flex; flex-direction: column; gap: 1rem; }
+    .connect-form input,
+    .connect-form textarea,
+    .connect-form select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: var(--warm-white);
+      border: 1px solid var(--parchment);
+      border-radius: 0;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.92rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    .connect-form input:focus,
+    .connect-form textarea:focus,
+    .connect-form select:focus { border-color: var(--gold); }
+    .connect-form textarea { height: 130px; resize: vertical; }
+    .connect-info { display: flex; flex-direction: column; gap: 1.8rem; }
+    .connect-item {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+    .connect-item-icon {
+      width: 42px; height: 42px;
+      background: var(--parchment);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .connect-item-text h4 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .connect-item-text p {
+      font-family: 'Lora', serif;
+      font-size: 0.98rem;
+      color: var(--ink);
+    }
+    .social-links { display: flex; gap: 0.8rem; margin-top: 1rem; }
+    .social-link {
+      width: 40px; height: 40px;
+      background: var(--brown);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      text-decoration: none;
+      font-weight: 700;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.75rem;
+      transition: background 0.2s;
+    }
+    .social-link:hover { background: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(250,246,238,0.6);
+      padding: 2.5rem;
+      text-align: center;
+    }
+    footer .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    footer .footer-brand span { color: var(--gold); }
+    footer p {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul { gap: 1.2rem; }
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 7rem 2rem 4rem; }
+      .about-grid,
+      .books-grid,
+      .speaking-grid,
+      .connect-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .community-cards { grid-template-columns: 1fr; }
+      .hero-quote-block { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-brand" href="#hero">Shaun <span>Hern</span></a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#books">Books</a></li>
+      <li><a href="#speaking">Speaking</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Author &amp; Speaker</p>
+      <h1 class="hero-name">Shaun Hern</h1>
+      <p class="hero-brand">The GrandpaDad</p>
+      <p class="hero-desc">
+        Stories of faith, fatherhood, and showing up — for families navigating the beautifully messy road of later-in-life parenting, special needs caregiving, and life rooted in Christ.
+      </p>
+      <div class="hero-ctas">
+        <a href="#books" class="btn-primary">Read the Books</a>
+        <a href="#connect" class="btn-secondary">Book a Speaker</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-pattern"></div>
+      <div class="hero-photo-placeholder">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="22" r="12" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 54c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <p>Author Photo</p>
+      </div>
+      <div class="hero-quote-block">
+        <blockquote>Still Showing Up — for the ones who need us most.</blockquote>
+        <cite>— Shaun Hern, GrandpaDad</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="fade-up">
+          <p class="section-label">About Shaun</p>
+          <h2 class="section-title">A Dad. A Grandpa. A Voice for Families Who Keep Going.</h2>
+          <div class="section-body">
+            <p>Shaun Hern didn't set out to become an author. He set out to be present — for his children, his family, and the faith that anchors everything. Parenting later in life, walking alongside special needs caregivers, and trying to center a messy, complicated world on Christ gave him something far more valuable than a platform: a story worth telling.</p>
+            <br />
+            <p>Under his <em>GrandpaDad</em> brand, Shaun writes and speaks with an authenticity that resonates deeply in communities that rarely see themselves on the page — grandparents raising grandchildren, older fathers figuring it out, families navigating disability, and everyday believers trying to live with faith as their compass.</p>
+          </div>
+          <div class="about-tags">
+            <span class="tag">Later-in-Life Parenting</span>
+            <span class="tag">Faith &amp; Family</span>
+            <span class="tag">Special Needs Caregiving</span>
+            <span class="tag">Grandparents as Caregivers</span>
+            <span class="tag">Christ-Centered Living</span>
+          </div>
+        </div>
+        <div class="about-visual fade-up">
+          <div class="about-card">
+            <p>"Authenticity over polish. Every time. Real families don't need a perfect story — they need an honest one."</p>
+            <p class="card-author">— Shaun Hern</p>
+          </div>
+          <div class="about-accent"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKS -->
+  <section id="books">
+    <div class="container">
+      <div class="fade-up">
+        <p class="section-label">Published Works</p>
+        <h2 class="section-title">Books That Meet You Where You Are</h2>
+        <p class="section-body" style="max-width:580px;">Two books. Two different doors into the same honest conversation about parenting, faith, and the unexpected beauty of showing up.</p>
+      </div>
+      <div class="books-grid">
+        <div class="book-card fade-up">
+          <div class="book-cover adventures">
+            <span class="book-cover-label">GrandpaDad</span>
+            <span>Adventures</span>
+          </div>
+          <div class="book-info">
+            <span class="book-genre">Humorous Memoir</span>
+            <h3 class="book-title">GrandpaDad Adventures</h3>
+            <p class="book-desc">A funny, honest memoir about what it's really like to parent later in life — the chaos, the love, the exhaustion, and the laughs you didn't expect to have. For every dad who thought he was done and found out he was just getting started.</p>
+            <a href="https://www.amazon.com" target="_blank" rel="noopener" class="book-cta">Get it on Amazon →</a>
+          </div>
+        </div>
+        <div class="book-card fade-up">
+          <div class="book-cover guide">
+            <span class="book-cover-label">Faith</span>
+            <span>Guide My Decisions</span>
+          </div>
+          <div class="book-info">
+            <span class="book-genre">Faith Memoir</span>
+            <h3 class="book-title">Guide My Decisions. Steady My Emotions.</h3>
+            <p class="book-desc">A faith memoir about parenting under pressure — when the stakes are high, the road is uncertain, and the only anchor that holds is a trust in something greater than ourselves. Honest, prayerful, and deeply human.</p>
+            <a href="https://www.amazon.com" target="_blank" rel="noopener" class="book-cta">Get it on Amazon →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEAKING -->
+  <section id="speaking">
+    <div class="container">
+      <div class="speaking-grid">
+        <div class="fade-up">
+          <p class="section-label">Speaking</p>
+          <h2 class="section-title">A Speaker Who Lives the Story</h2>
+          <p class="section-body" style="margin-bottom: 2rem;">Shaun speaks from the inside — not from a stage above the crowd, but from the same daily realities his audiences are navigating. Whether at a caregiver conference, a church event, or a community fair, his message is the same: <em>you are not alone, and you are still enough.</em></p>
+          <ul class="speaking-topics">
+            <li>
+              <span class="topic-icon">🙏</span>
+              <div class="topic-info">
+                <h4>Faith Under Pressure</h4>
+                <p>Keeping Christ at the center when life pushes from every direction.</p>
+              </div>
+            </li>
+            <li>
+              <span class="topic-icon">👴</span>
+              <div class="topic-info">
+                <h4>GrandpaDad Life</h4>
+                <p>The humor, heart, and hard days of later-in-life parenting.</p>
+              </div>
+            </li>
+            <li>
+              <span class="topic-icon">💙</span>
+              <div class="topic-info">
+                <h4>Caregiving &amp; Special Needs Families</h4>
+                <p>Strength, community, and showing up for those who depend on us.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="speaking-right fade-up">
+          <div class="featured-talk">
+            <p class="talk-label">Featured Talk</p>
+            <h3>"Still Showing Up"</h3>
+            <p>A 10-minute keynote developed for the Easterseals Florida Autism Fair — this talk goes straight to the heart of every caregiver who has ever wondered if what they're doing is enough. It is. You are.</p>
+            <span class="venue">Easterseals Florida · Autism Fair</span>
+          </div>
+          <p class="section-body" style="font-size: 0.95rem;">Available for churches, caregiver conferences, community events, school programs, and faith-based organizations. Shaun tailors every talk to the audience in the room.</p>
+          <div style="margin-top: 2rem;">
+            <a href="#connect" class="btn-primary">Inquire About Booking</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY -->
+  <section id="community">
+    <div class="container">
+      <div class="fade-up" style="text-align: center; max-width: 600px; margin: 0 auto 1rem;">
+        <p class="section-label" style="justify-content: center;">Community</p>
+        <h2 class="section-title">Written For People Like Us</h2>
+        <p class="section-body">Shaun's work lives inside communities that are often overlooked — and they're his communities too. He's not writing about them from the outside. He's writing with them.</p>
+      </div>
+      <div class="community-cards">
+        <div class="comm-card fade-up">
+          <div class="comm-icon">👴👶</div>
+          <h3>Grandparents Raising Grandchildren</h3>
+          <p>For those who thought they were done and found themselves starting over — with love, but also with exhaustion and questions. You belong here.</p>
+        </div>
+        <div class="comm-card fade-up">
+          <div class="comm-icon">💙♾️</div>
+          <h3>Special Needs &amp; Autism Families</h3>
+          <p>Caregivers who navigate a world not built for their child — and do it every day anyway. Shaun has stood on that ground and speaks from it.</p>
+        </div>
+        <div class="comm-card fade-up">
+          <div class="comm-icon">✝️🏡</div>
+          <h3>Faith-Based Families</h3>
+          <p>Believers trying to live a Christ-centered life in a world that's messy and complicated. Not perfect faith — real faith. That's what this is about.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAITH BANNER -->
+  <section id="faith">
+    <div class="container">
+      <blockquote>"I am not writing to impress anyone. I am writing so that one person, at the end of their rope, knows they are not alone."</blockquote>
+      <cite>— Shaun Hern</cite>
+    </div>
+  </section>
+
+  <!-- CONNECT -->
+  <section id="connect">
+    <div class="container">
+      <div class="connect-grid">
+        <div class="fade-up">
+          <p class="section-label">Get in Touch</p>
+          <h2 class="section-title">Let's Connect</h2>
+          <p class="section-body" style="margin-bottom: 2rem;">Whether you're a reader, an event organizer, a fellow author, or someone who just needs to know someone else gets it — reach out. Shaun reads every message.</p>
+          <div class="connect-info">
+            <div class="connect-item">
+              <div class="connect-item-icon">📚</div>
+              <div class="connect-item-text">
+                <h4>Books on Amazon</h4>
+                <p><a href="https://www.amazon.com" target="_blank">Find both titles on Amazon KDP</a></p>
+              </div>
+            </div>
+            <div class="connect-item">
+              <div class="connect-item-icon">🎤</div>
+              <div class="connect-item-text">
+                <h4>Speaking Inquiries</h4>
+                <p>Churches, conferences, community events, and caregiver organizations welcome.</p>
+              </div>
+            </div>
+            <div class="connect-item">
+              <div class="connect-item-icon">📘</div>
+              <div class="connect-item-text">
+                <h4>Follow Along</h4>
+                <p>Join the GrandpaDad community on Facebook for updates, stories, and encouragement.</p>
+              </div>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-link" title="Facebook">FB</a>
+            <a href="https://www.amazon.com" class="social-link" title="Amazon" target="_blank">AMZ</a>
+          </div>
+        </div>
+        <div class="fade-up">
+          <div class="connect-form">
+            <input type="text" placeholder="Your Name" />
+            <input type="email" placeholder="Your Email" />
+            <select>
+              <option value="" disabled selected>I'm reaching out about…</option>
+              <option>A speaking inquiry</option>
+              <option>Your books</option>
+              <option>Media or press</option>
+              <option>Just saying hello</option>
+            </select>
+            <textarea placeholder="Your message…"></textarea>
+            <button class="btn-primary" style="align-self: flex-start; border: none; cursor: pointer;" onclick="alert('Thank you! Shaun will be in touch soon.')">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-brand">Shaun <span>Hern</span> · GrandpaDad</p>
+    <p>© 2026 Shaun Hern. All rights reserved. | <a href="#books">Books</a> · <a href="#speaking">Speaking</a> · <a href="#connect">Contact</a></p>
+  </footer>
+
+  <script>
+    // Intersection observer for fade-up animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
