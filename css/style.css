@@ -1,0 +1,677 @@
+
+  /* ── DESIGN DIRECTION: Warm kitchen-table Christianity.
+     Like a handwritten note tucked in a well-loved Bible.
+     Cream paper, honest ink, coffee-ring warmth.
+     Fonts that feel human. Layouts that breathe.
+     Nothing corporate. Nothing cold. ── */
+
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=Nunito:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Caveat:wght@500;700&display=swap');
+
+  :root {
+    --paper:    #FAF6F1;
+    --paper2:   #F4EDE3;
+    --parchment:#E8D9C4;
+    --ink:      #1C1108;
+    --brown:    #4D2D0F;
+    --brown2:   #7A4820;
+    --gold:     #B86028;
+    --gold2:    #D4844A;
+    --rust:     #9C3B18;
+    --sage:     #4E6840;
+    --sage2:    #709058;
+    --blue:     #2D5472;
+    --shadow:   rgba(77,45,15,0.10);
+    --shadow2:  rgba(77,45,15,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    /* subtle paper texture via repeating gradient */
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(180,155,110,0.04) 28px,
+      rgba(180,155,110,0.04) 29px
+    );
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: stretch; justify-content: space-between;
+    height: 48px;
+    background: rgba(255,250,244,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--parchment);
+    box-shadow: 0 1px 8px rgba(120,50,0,0.07);
+  }
+  .nav-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem; font-weight: 700;
+    color: var(--brown); text-decoration: none;
+    letter-spacing: 0.01em;
+    display: flex; align-items: center;
+    padding: 0 1.8rem;
+    border-right: 1px solid var(--parchment);
+    white-space: nowrap;
+  }
+  .nav-brand span { color: var(--gold); font-style: italic; margin-left: 3px; }
+  nav ul {
+    display: flex; gap: 0; list-style: none;
+    height: 100%; margin: 0; padding: 0;
+  }
+  nav ul li { display: flex; }
+  nav ul a {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--brown2); text-decoration: none;
+    display: flex; align-items: center;
+    padding: 0 1.1rem;
+    border-right: 1px solid var(--parchment);
+    border-bottom: 3px solid transparent;
+    transition: color 0.18s, border-color 0.18s, background 0.18s;
+    white-space: nowrap;
+  }
+  nav ul a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    background: rgba(224,112,32,0.05);
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #3A1E08 0%, #5C3018 100%);
+  }
+  /* wood-grain warmth on hero bg */
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      85deg,
+      transparent,
+      transparent 60px,
+      rgba(255,255,255,0.02) 60px,
+      rgba(255,255,255,0.02) 61px
+    );
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6.5rem 4rem 5rem 5rem;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem; font-weight: 500;
+    color: var(--gold2);
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+  .hero-name {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 700; line-height: 0.95;
+    color: #FBF7F0;
+    margin-bottom: 0.2rem;
+  }
+  .hero-brand {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.3rem, 2vw, 1.9rem);
+    font-weight: 300; font-style: italic;
+    color: var(--gold2);
+    margin-bottom: 1.8rem;
+    letter-spacing: 0.02em;
+  }
+  .hero-desc {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05rem; line-height: 1.8;
+    color: rgba(251,247,240,0.82);
+    max-width: 420px; margin-bottom: 2.5rem;
+  }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    text-decoration: none; border: none; cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 3px 12px rgba(184,96,40,0.30);
+  }
+  .btn-primary:hover { background: var(--brown); transform: translateY(-2px); }
+  .btn-secondary {
+    display: inline-block;
+    border: 2px solid rgba(251,247,240,0.5);
+    color: rgba(251,247,240,0.85);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    text-decoration: none; border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(251,247,240,0.12); border-color: var(--gold2); color: var(--gold2); }
+  /* light variant for light sections */
+  .btn-secondary-dark {
+    display: inline-block;
+    border: 2px solid var(--brown);
+    color: var(--brown);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    text-decoration: none; border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .btn-secondary-dark:hover { background: var(--brown); color: #fff; }
+
+  /* ── HERO RIGHT / PHOTO ── */
+
+  .hero-logo {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: block;
+    margin-bottom: 1.6rem;
+    /* logo has cream bg — blend it into the dark hero */
+    mix-blend-mode: screen;
+    opacity: 0.95;
+    filter: brightness(1.15) contrast(0.95);
+  }
+  .hero-right {
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.15);
+  }
+  .hero-photo {
+    position: relative; z-index: 2;
+    width: 320px; height: 400px;
+    object-fit: cover; object-position: center top;
+    display: block;
+    border: 4px solid rgba(212,168,75,0.4);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .hero-quote-block {
+    position: absolute; bottom: 2.5rem; left: -1rem; z-index: 3;
+    background: var(--paper);
+    padding: 1.2rem 1.6rem;
+    max-width: 280px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    border-left: 4px solid var(--gold);
+  }
+  .hero-quote-block blockquote {
+    font-family: 'Fraunces', serif;
+    font-size: 0.92rem; font-style: italic;
+    line-height: 1.6; color: var(--ink);
+  }
+  .hero-quote-block cite {
+    display: block; margin-top: 0.5rem;
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem; color: var(--gold);
+    font-style: normal;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 5.5rem 0; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 2.5rem; }
+
+  .section-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem; font-weight: 500;
+    color: var(--gold); margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: rgba(184,131,42,0.3); max-width: 60px;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
+    font-weight: 700; color: var(--brown);
+    line-height: 1.2; margin-bottom: 1.1rem;
+  }
+  .section-body {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05rem; line-height: 1.8;
+    color: var(--brown2);
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--paper2); }
+  .about-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 4.5rem; align-items: start;
+  }
+  .about-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.8rem;
+  }
+  .tag {
+    display: inline-block;
+    padding: 0.3rem 0.85rem;
+    background: var(--parchment);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--brown); border-radius: 2px;
+  }
+  .about-visual { position: relative; }
+  .about-card {
+    background: var(--brown);
+    color: var(--paper);
+    padding: 2.5rem 2.5rem 2rem;
+    position: relative;
+    border-radius: 2px;
+  }
+  .about-card::before {
+    content: '“';
+    font-family: 'Fraunces', serif;
+    font-size: 7rem; line-height: 0.7;
+    color: var(--gold2); opacity: 0.3;
+    position: absolute; top: 1rem; left: 1.5rem;
+  }
+  .about-card p {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem; line-height: 1.75;
+    position: relative; z-index: 1; font-style: italic;
+    color: rgba(251,247,240,0.9);
+  }
+  .about-card .card-author {
+    margin-top: 1.2rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem; color: var(--gold2);
+    font-style: normal;
+  }
+  .about-accent {
+    position: absolute; bottom: -1rem; right: -1rem;
+    width: 75%; height: 75%;
+    border: 2px solid var(--gold); z-index: -1;
+    border-radius: 2px;
+  }
+  .about-scripture {
+    margin-top: 2rem; padding: 1rem 1.3rem;
+    border-left: 3px solid var(--gold);
+    background: var(--parchment);
+    border-radius: 0 2px 2px 0;
+  }
+  .scripture-ref {
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem; color: var(--gold);
+    display: block; margin-bottom: 0.3rem;
+  }
+  .about-scripture p {
+    font-family: 'Fraunces', serif;
+    font-size: 0.95rem; font-style: italic;
+    color: var(--brown); line-height: 1.6;
+  }
+
+  /* ── BOOKS ── */
+  #books { background: var(--paper); }
+  .books-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2.5rem; margin-top: 3rem;
+  }
+  .book-card {
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 1.8rem; padding: 2rem;
+    background: var(--paper2);
+    border: 1px solid var(--parchment);
+    border-radius: 3px;
+    transition: box-shadow 0.25s, transform 0.2s;
+  }
+  .book-card:hover {
+    box-shadow: 0 10px 35px var(--shadow2);
+    transform: translateY(-3px);
+  }
+  .book-cover-img {
+    width: 110px; min-height: 150px;
+    object-fit: cover; object-position: center top;
+    display: block; flex-shrink: 0;
+    box-shadow: 4px 6px 20px var(--shadow2);
+    border-radius: 2px;
+  }
+  .book-info { display: flex; flex-direction: column; gap: 0.45rem; }
+  .book-genre {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem; color: var(--gold);
+  }
+  .book-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--brown); line-height: 1.3;
+  }
+  .book-desc {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem; line-height: 1.65;
+    color: var(--brown2); flex: 1;
+  }
+  .book-cta {
+    display: inline-block; margin-top: 0.8rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gold); text-decoration: none;
+    border-bottom: 1px solid currentColor; padding-bottom: 1px;
+    transition: color 0.2s;
+  }
+  .book-cta:hover { color: var(--brown); }
+
+  /* ── SPEAKING ── */
+  #speaking {
+    background: var(--brown);
+    color: var(--paper);
+    position: relative; overflow: hidden;
+  }
+  #speaking::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      85deg,transparent,transparent 80px,
+      rgba(255,255,255,0.015) 80px,rgba(255,255,255,0.015) 81px
+    );
+  }
+  #speaking .section-label { color: var(--gold2); }
+  #speaking .section-title { color: var(--paper); }
+  #speaking .section-body { color: rgba(251,247,240,0.8); }
+  .speaking-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; position: relative;
+  }
+  .speaking-topics { list-style: none; display: flex; flex-direction: column; gap: 1.1rem; }
+  .speaking-topics li {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.2rem 1.4rem;
+    background: rgba(255,255,255,0.06);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 2px 2px 0;
+  }
+  .topic-icon { display: flex; align-items: flex-start; flex-shrink: 0; margin-top: 0.1rem; }
+  .topic-icon-svg {
+    width: 26px; height: 26px;
+    flex-shrink: 0; margin-top: 0.1rem;
+  }
+  .comm-icon svg { display: block; margin: 0 auto; }
+
+  .topic-info h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--paper); margin-bottom: 0.25rem;
+  }
+  .topic-info p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem; line-height: 1.55;
+    color: rgba(251,247,240,0.7);
+  }
+  .speaking-right { display: flex; flex-direction: column; justify-content: center; }
+  .featured-talk {
+    background: rgba(212,168,75,0.12);
+    border: 1px solid rgba(212,168,75,0.3);
+    padding: 2rem; margin-bottom: 1.8rem;
+    border-radius: 3px;
+  }
+  .featured-talk .talk-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem; color: var(--gold2);
+    margin-bottom: 0.6rem; display: block;
+  }
+  .featured-talk h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.45rem; font-style: italic;
+    color: var(--paper); margin-bottom: 0.7rem;
+  }
+  .featured-talk p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.92rem; line-height: 1.65;
+    color: rgba(251,247,240,0.75); margin-bottom: 1rem;
+  }
+  .featured-talk .venue {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem; color: var(--gold2); opacity: 0.85;
+  }
+
+  /* ── COMMUNITY ── */
+  #community { background: var(--parchment); }
+  .community-cards {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1.8rem; margin-top: 3rem;
+  }
+  .comm-card {
+    background: var(--paper);
+    padding: 2.2rem 1.8rem; text-align: center;
+    border-radius: 3px;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+  }
+  .comm-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 8px 30px var(--shadow);
+    transform: translateY(-2px);
+  }
+  .comm-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .comm-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--brown); margin-bottom: 0.65rem;
+  }
+  .comm-card p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem; line-height: 1.65;
+    color: var(--brown2);
+  }
+
+  /* ── FAITH BANNER ── */
+  #faith {
+    background: var(--sage);
+    padding: 4rem 0; text-align: center;
+  }
+  #faith .container { max-width: 700px; }
+  #faith blockquote {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+    font-style: italic; color: var(--paper);
+    line-height: 1.55; margin-bottom: 0.8rem;
+  }
+  #faith cite {
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem; color: rgba(251,247,240,0.7);
+    font-style: normal;
+  }
+
+  /* ── SIGNUP ── */
+  #signup { background: var(--brown); color: var(--paper); position: relative; overflow: hidden; }
+  #signup::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 10% 85%, rgba(184,131,42,0.1) 0%, transparent 55%);
+  }
+  .signup-inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+  .signup-left .section-label { color: var(--gold2); }
+  .signup-left .section-title { color: var(--paper); }
+  .signup-left .section-body { color: rgba(251,247,240,0.8); margin-bottom: 1.8rem; }
+  .signup-perks { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.4rem; }
+  .signup-perks li {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    font-family: 'Nunito', sans-serif; font-size: 0.92rem;
+    color: rgba(251,247,240,0.8); line-height: 1.5;
+  }
+  .signup-perks li::before {
+    content: '◆'; color: var(--gold2); font-size: 0.5rem;
+    margin-top: 0.35rem; flex-shrink: 0;
+  }
+  .signup-stat {
+    margin-top: 2.2rem; display: flex; align-items: center;
+    gap: 1.4rem; padding: 1.3rem 1.5rem;
+    background: rgba(255,255,255,0.06);
+    border-left: 3px solid var(--gold);
+  }
+  .stat-number {
+    font-family: 'Fraunces', serif;
+    font-size: 2.6rem; font-weight: 700;
+    color: var(--gold2); line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem; color: rgba(251,247,240,0.65); line-height: 1.5;
+  }
+  .signup-form-wrap { background: var(--paper2); padding: 2.2rem; border-radius: 3px; }
+  .signup-form-wrap h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.35rem; font-weight: 700;
+    color: var(--brown); margin-bottom: 0.35rem;
+  }
+  .signup-form-wrap .form-sub {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem; color: var(--brown2); margin-bottom: 1.4rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .form-field { display: flex; flex-direction: column; gap: 0.28rem; margin-bottom: 0.75rem; }
+  .form-field label {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--brown);
+  }
+  .form-field input,.form-field select,.form-field textarea {
+    padding: 0.75rem 0.9rem;
+    background: var(--paper);
+    border: 1.5px solid var(--parchment);
+    border-radius: 2px;
+    font-family: 'Nunito', sans-serif; font-size: 0.92rem;
+    color: var(--ink); outline: none;
+    transition: border-color 0.2s; width: 100%; appearance: none;
+  }
+  .form-field input:focus,.form-field select:focus,.form-field textarea:focus { border-color: var(--gold); }
+  .form-field textarea { height: 70px; resize: none; }
+  .form-msg { display: none; padding: 0.8rem 1rem; font-family: 'Nunito', sans-serif; font-size: 0.88rem; margin-bottom: 0.8rem; line-height: 1.5; border-radius: 2px; }
+  .form-msg.success { background: rgba(78,114,88,0.12); color: var(--sage); border-left: 3px solid var(--sage); }
+  .form-msg.error   { background: rgba(156,61,34,0.10); color: var(--rust); border-left: 3px solid var(--rust); }
+
+  /* ── ADMIN PANEL ── */
+  #admin-panel { display: none; margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid rgba(212,168,75,0.2); position: relative; z-index: 1; }
+  .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.8rem; flex-wrap: wrap; gap: 1rem; }
+  .admin-header h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--paper); }
+  .admin-stats { display: flex; gap: 1.3rem; flex-wrap: wrap; }
+  .admin-stat-card { background: rgba(255,255,255,0.07); padding: 0.9rem 1.3rem; text-align: center; border-radius: 2px; min-width: 90px; }
+  .admin-stat-card .asn { font-family: 'Fraunces', serif; font-size: 1.9rem; font-weight: 700; color: var(--gold2); display: block; }
+  .admin-stat-card .asl { font-family: 'Nunito', sans-serif; font-size: 0.72rem; color: rgba(251,247,240,0.55); letter-spacing: 0.08em; text-transform: uppercase; }
+  .admin-controls { display: flex; gap: 0.75rem; margin-bottom: 1.3rem; flex-wrap: wrap; }
+  .admin-controls input,.admin-controls select { padding: 0.55rem 0.9rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(212,168,75,0.3); color: var(--paper); font-family: 'Nunito', sans-serif; font-size: 0.88rem; outline: none; border-radius: 2px; min-width: 200px; }
+  .admin-controls input::placeholder { color: rgba(251,247,240,0.35); }
+  .admin-controls input:focus,.admin-controls select:focus { border-color: var(--gold); }
+  .btn-admin { padding: 0.55rem 1.1rem; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Nunito', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; border-radius: 2px; }
+  .btn-admin:hover { background: var(--gold); color: var(--brown); }
+  .btn-admin.danger { border-color: var(--rust); color: var(--rust); }
+  .btn-admin.danger:hover { background: var(--rust); color: #fff; }
+  .sub-table-wrap { overflow-x: auto; }
+  .sub-table { width: 100%; border-collapse: collapse; font-family: 'Nunito', sans-serif; font-size: 0.85rem; }
+  .sub-table th { text-align: left; padding: 0.65rem 1rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold2); border-bottom: 1px solid rgba(212,168,75,0.3); cursor: pointer; white-space: nowrap; user-select: none; }
+  .sub-table th:hover { color: var(--gold); }
+  .sub-table td { padding: 0.7rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.06); color: rgba(251,247,240,0.85); vertical-align: middle; }
+  .sub-table tr:hover td { background: rgba(255,255,255,0.04); }
+  .sub-table tr:last-child td { border-bottom: none; }
+  .interest-badge { display: inline-block; padding: 0.18rem 0.55rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; border-radius: 2px; }
+  .interest-badge.books     { background: rgba(184,131,42,0.2); color: var(--gold2); }
+  .interest-badge.speaking  { background: rgba(78,114,88,0.25); color: #93BF9E; }
+  .interest-badge.devotional{ background: rgba(74,46,20,0.45); color: #D4A96A; }
+  .interest-badge.all       { background: rgba(156,61,34,0.2); color: #D48A70; }
+  .delete-btn { background: none; border: none; color: rgba(251,247,240,0.25); cursor: pointer; font-size: 1rem; padding: 0.2rem 0.4rem; transition: color 0.2s; }
+  .delete-btn:hover { color: var(--rust); }
+  .empty-state { text-align: center; padding: 3rem; color: rgba(251,247,240,0.35); font-family: 'Fraunces', serif; font-style: italic; }
+  .pagination { display: flex; gap: 0.45rem; margin-top: 1rem; justify-content: flex-end; align-items: center; }
+  .page-btn { padding: 0.38rem 0.75rem; background: transparent; border: 1px solid rgba(212,168,75,0.3); color: rgba(251,247,240,0.55); font-family: 'Nunito', sans-serif; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; border-radius: 2px; }
+  .page-btn:hover,.page-btn.active { background: var(--gold); color: var(--brown); border-color: var(--gold); }
+  .admin-toggle-wrap { text-align: center; margin-top: 2rem; }
+  .admin-toggle { background: none; border: none; font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(251,247,240,0.2); cursor: pointer; padding: 0.5rem; transition: color 0.2s; }
+  .admin-toggle:hover { color: rgba(251,247,240,0.4); }
+  .admin-password-prompt { display: none; background: rgba(255,255,255,0.07); padding: 1.4rem; margin-top: 0.8rem; max-width: 340px; margin-left: auto; margin-right: auto; border-radius: 3px; }
+  .admin-password-prompt input { width: 100%; padding: 0.65rem 0.9rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(212,168,75,0.3); color: var(--paper); font-family: 'Nunito', sans-serif; font-size: 0.92rem; outline: none; margin-bottom: 0.75rem; border-radius: 2px; }
+  .admin-password-prompt input:focus { border-color: var(--gold); }
+
+  /* ── COMING SOON ── */
+  #coming-soon { padding: 5.5rem 0; }
+  .coming-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2rem; }
+  .coming-card { background: var(--paper); border: 1px solid var(--parchment); border-radius: 3px; overflow: hidden; transition: box-shadow 0.25s, transform 0.2s; }
+  .coming-card:hover { box-shadow: 0 12px 40px var(--shadow2); transform: translateY(-3px); }
+  .coming-cover { width: 100%; height: 230px; overflow: hidden; }
+  .coming-cover-placeholder { display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: rgba(251,247,240,0.9); text-align: center; line-height: 1.35; padding: 1.5rem; }
+  .coming-info { padding: 1.4rem 1.5rem; }
+  .coming-badge { display: inline-block; padding: 0.22rem 0.65rem; background: rgba(184,131,42,0.15); color: var(--gold); font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem; border-radius: 2px; }
+  .coming-info h3 { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; color: var(--brown); margin-bottom: 0.55rem; line-height: 1.3; }
+  .coming-info p { font-family: 'Nunito', sans-serif; font-size: 0.88rem; line-height: 1.65; color: var(--brown2); }
+
+  /* ── CONNECT ── */
+  #connect { background: var(--paper2); }
+  .connect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .connect-form { display: flex; flex-direction: column; gap: 0.9rem; }
+  .connect-form input,.connect-form textarea,.connect-form select { width: 100%; padding: 0.8rem 1rem; background: var(--paper); border: 1.5px solid var(--parchment); border-radius: 2px; font-family: 'Nunito', sans-serif; font-size: 0.92rem; color: var(--ink); outline: none; transition: border-color 0.2s; appearance: none; }
+  .connect-form input:focus,.connect-form textarea:focus,.connect-form select:focus { border-color: var(--gold); }
+  .connect-form textarea { height: 120px; resize: vertical; }
+  .connect-info { display: flex; flex-direction: column; gap: 1.6rem; }
+  .connect-item { display: flex; gap: 1.1rem; align-items: flex-start; }
+  .connect-item-icon { width: 40px; height: 40px; background: var(--parchment); display: flex; align-items: center; justify-content: center; font-size: 1.05rem; flex-shrink: 0; border-radius: 2px; }
+  .connect-item-text h4 { font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.25rem; }
+  .connect-item-text p { font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--ink); }
+  .social-links { display: flex; gap: 0.7rem; margin-top: 0.8rem; }
+  .social-link { width: 38px; height: 38px; background: var(--brown); color: var(--paper); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; font-family: 'Nunito', sans-serif; text-decoration: none; border-radius: 2px; transition: background 0.2s; }
+  .social-link:hover { background: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--ink); color: rgba(251,247,240,0.55); padding: 2.2rem; text-align: center; }
+  footer .footer-brand { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: var(--paper); margin-bottom: 0.4rem; }
+  footer .footer-brand span { color: var(--gold2); font-style: italic; }
+  footer p { font-family: 'Nunito', sans-serif; font-size: 0.82rem; }
+  footer a { color: var(--gold2); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1rem; }
+    #hero { grid-template-columns: 1fr; }
+  
+  .hero-logo {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: block;
+    margin-bottom: 1.6rem;
+    /* logo has cream bg — blend it into the dark hero */
+    mix-blend-mode: screen;
+    opacity: 0.95;
+    filter: brightness(1.15) contrast(0.95);
+  }
+  .hero-right { display: none; }
+    .hero-left { padding: 7rem 2rem 4rem; }
+    .about-grid,.books-grid,.speaking-grid,.connect-grid,.signup-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .community-cards,.coming-grid { grid-template-columns: 1fr; }
+    .hero-quote-block { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  /* Active nav tab */
+  nav ul a.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+    background: rgba(184,96,40,0.07);
+  }
